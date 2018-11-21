@@ -51,10 +51,15 @@ app.post('/values', async (req, res) => {
     if (parseInt(index) > 40) {
         return res.status(422).send('Index too high');
     }
-    redisClient.hset('values', index, 'Nothing yet!');
-    redisPublisher.publish('insert', index);
-    pgClient.query('INSERT INTO values(number) VALUES($1)', [index]);
-    res.send({ working: true });
+    redisClient.hget('values', index, (err, value) => {
+        if (value) {
+            return res.send({ working: false });
+        }
+        redisClient.hset('values', index, 'Nothing yet!');
+        redisPublisher.publish('insert', index);
+        pgClient.query('INSERT INTO values(number) VALUES($1)', [index]);
+        res.send({ working: true });
+    });
 });
 app.post('/reset', async (req, res) => {
     await pgClient.query('DELETE FROM values');
