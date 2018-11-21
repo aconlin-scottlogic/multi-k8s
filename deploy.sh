@@ -12,9 +12,9 @@ docker push aconlin/multi-worker:latest
 docker push aconlin/multi-worker:$GIT_SHA
 
 # apply kubernetes config
-kubectl apply -f k8s
+# kubectl apply -f k8s
 
 # force the deployed containers to pick up the latest images
-kubectl set image deployments/client-deployment client=aconlin/multi-client:$GIT_SHA
-kubectl set image deployments/api-server-deployment api-server=aconlin/multi-server:$GIT_SHA
-kubectl set image deployments/worker-deployment worker=aconlin/multi-worker:$GIT_SHA
+# kubectl set image deployments/client-deployment client=aconlin/multi-client:$GIT_SHA
+# kubectl set image deployments/api-server-deployment api-server=aconlin/multi-server:$GIT_SHA
+# kubectl set image deployments/worker-deployment worker=aconlin/multi-worker:$GIT_SHA
