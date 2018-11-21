@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
         - name: api-server
-          image: stephengrider/multi-server
+          image: aconlin/multi-server
           ports:
             - containerPort: 5000
           env:
